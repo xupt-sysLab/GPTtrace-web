@@ -64,13 +64,14 @@ export const OpenAIStream = async (
   language: string,
   model: string,
   key: string,
+  base_url: string = 'https://api.openai.com/v1'
 ) => {
   const {createParser} = await import("eventsource-parser");
 
   const prompt = await createPrompt(help_doc, key);
   const system = { role: 'system', content: prompt };
 
-  const res = await fetch(`https://api.openai.com/v1/chat/completions`, {
+  const res = await fetch(`${base_url}/chat/completions`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${key || process.env.OPENAI_API_KEY}`,

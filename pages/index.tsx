@@ -1,4 +1,5 @@
 import { APIKeyInput } from '@/components/APIKeyInput';
+import { BaseURLInput } from '@/components/BaseURL';
 import { CodeBlock } from '@/components/CodeBlock';
 import { LanguageSelect } from '@/components/LanguageSelect';
 import {preview_input_code, preview_output_code} from "@/components/ScriptTemplate"
@@ -22,6 +23,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
   const [hasTranslated, setHasTranslated] = useState<boolean>(false);
   const [apiKey, setApiKey] = useState<string>('');
+  const [baseURL, setBaseURL] = useState<string>('');
 
   const handleTranslate = async () => {
     const maxCodeLength = model === 'gpt-3.5-turbo' ? 6000 : 12000;
@@ -59,6 +61,7 @@ export default function Home() {
       language,
       model,
       apiKey,
+      baseURL
     };
 
     const response = await fetch('/api/translate', {
@@ -119,6 +122,12 @@ export default function Home() {
     localStorage.setItem('apiKey', value);
   };
 
+  const handleBaseURLChange = (value: string) => {
+    setBaseURL(value);
+
+    localStorage.setItem('baseURL', value);
+  }
+
   useEffect(() => {
     if (hasTranslated) {
       handleTranslate();
@@ -127,9 +136,14 @@ export default function Home() {
 
   useEffect(() => {
     const apiKey = localStorage.getItem('apiKey');
+    const baseURL = localStorage.getItem('baseURL');
 
     if (apiKey) {
       setApiKey(apiKey);
+    }
+
+    if (baseURL) {
+      setBaseURL(baseURL);
     }
   }, []);
 
@@ -155,6 +169,10 @@ export default function Home() {
 
         <div className="mt-6 text-center text-sm">
           <APIKeyInput apiKey={apiKey} onChange={handleApiKeyChange} />
+        </div>
+
+        <div className="mt-6 text-center text-sm">
+          <BaseURLInput apiKey={baseURL} onChange={handleBaseURLChange} />
         </div>
 
         <div className="mt-2 flex items-center space-x-2">

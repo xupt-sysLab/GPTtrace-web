@@ -32,6 +32,10 @@ export const ModelSelect: FC<Props> = ({ model, onChange }) => {
           <option value="Exllamma">Exllamma</option>
           <option value="Codellama">Codellama</option>
         </optgroup>
+        <optgroup label="DeepSeek">
+          <option value="deepseek-chat">DeepSeek Chat</option>
+          <option value="deepseek-coder">DeepSeek Coder</option>
+        </optgroup>
       </select>
     </div>
   );

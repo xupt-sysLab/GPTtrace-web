@@ -1,11 +1,13 @@
 export type OpenAIModel = 'gpt-3.5-turbo' | 'gpt-4';
+export type DeepSeekModel = 'deepseek-chat' | 'deepseek-coder';
 export type BPF = 'libbpf' | 'bpftrace';
 
 export interface TranslateBody {
   help_doc: string;
   language: string;
-  model: OpenAIModel;
+  model: OpenAIModel | DeepSeekModel;
   apiKey: string;
+  baseURL: string;
 }
 
 export interface TranslateResponse {
